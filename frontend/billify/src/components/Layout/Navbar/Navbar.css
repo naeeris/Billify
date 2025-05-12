@@ -1,0 +1,91 @@
+.navbar {
+  width: calc(100% - 250px); /* Resta el ancho del sidebar */
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 250px; /* Comienza después del sidebar */
+  z-index: 1100;
+  display: flex;
+  justify-content: space-between; /* Distribuye el espacio entre elementos */
+}
+
+/* Modo oscuro */
+.navbar.dark-mode {
+  background-color: #1a1a1a11;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajuste cuando el sidebar está colapsado */
+.sidebar.collapsed ~ .content-area .navbar {
+  width: calc(100% - 60px); /* Ancho reducido cuando sidebar colapsado */
+  left: 60px;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  background-color: #184D64;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.navbar.dark-mode .add-button {
+  background-color: #0e3647;
+}
+
+.add-button:hover {
+  background-color: #0e3647;
+}
+
+.button-icon {
+  margin-right: 0.5rem;
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-left: auto; /* Esto empuja el área de usuario a la derecha */
+}
+
+.user-area:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  color: #184D64;
+}
+
+.navbar.dark-mode .user-icon {
+  color: #184D64;
+}
+
+.welcome-text {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+.navbar.dark-mode .welcome-text {
+  color: #f0f0f0;
+}
+
+

@@ -1,0 +1,128 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #184D64;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: width 0.3s ease;
+  justify-content: space-between; /* Asegura que el footer quede abajo */
+}
+
+.sidebar.collapsed {
+  width: 80px;
+  padding: 1.5rem 0.5rem;
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+  min-height: 40px;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem; /* Espacio antes del footer */
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar.dark-mode .sidebar-item {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sidebar.collapsed .sidebar-item {
+  padding: 0.75rem 0; /* Menos padding horizontal */
+  justify-content: center;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sidebar-icon {
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.sidebar.collapsed .sidebar-icon {
+  margin-right: 0;
+  font-size: 1.3rem;
+}
+
+.sidebar-label {
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .sidebar-label {
+  display: none;
+}
+
+.sidebar-footer {
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto; /* Empuja el footer hacia abajo */
+  position: sticky;
+  bottom: 0;
+  background-color: #184D64; /* Mismo color que el sidebar */
+}
+
+.hide-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.hide-btn:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hide-icon {
+  transition: transform 0.3s ease;
+  margin-right: 0.75rem;
+}
+
+.hide-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed .hide-icon {
+  margin-right: 0;
+}
+
+.hide-text {
+  white-space: nowrap;
+}

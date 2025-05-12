@@ -1,19 +1,18 @@
 from django.db import models
+from suppliers.models import Supplier
 
 # Modelo Invoice
 class Invoice(models.Model):
     invoice_number = models.CharField(max_length=255, unique=True)
     invoice_reg_date = models.DateField()
     invoice_date = models.DateField()
-    '''
     invoice_supplier = models.ForeignKey(
         Supplier,
-        max_length=255
+        max_length=255,
         on_delete=models.PROTECT,
         related_name='invoices',
         verbose_name='Supplier',
     )
-    '''
     registered_by = models.ForeignKey(
         'auth.User',
         on_delete=models.PROTECT,
@@ -35,7 +34,6 @@ class CreditNote(models.Model):
     credit_note_number = models.CharField(max_length=255, unique=True)
     credit_note_reg_date = models.DateField()
     credit_note_date = models.DateField()
-    '''
     credit_note_supplier = models.ForeignKey(
         Supplier,
         max_length=255,
@@ -43,7 +41,6 @@ class CreditNote(models.Model):
         related_name='credit_notes',
         verbose_name='Supplier',
     )
-    '''
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     registered_by = models.ForeignKey(
         'auth.User',
