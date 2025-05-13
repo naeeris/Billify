@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.core.validators import RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
@@ -17,7 +18,10 @@ class Supplier(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
-        'auth.User', related_name='suppliers', on_delete=models.PROTECT
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name='suppliers_created',
+        verbose_name='Created By',
     )
     
     def __str__(self):

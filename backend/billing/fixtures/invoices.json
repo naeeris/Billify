@@ -1,0 +1,26 @@
+[
+  {
+    "model": "billing.invoice",
+    "pk": 1,
+    "fields": {
+      "invoice_number": "INV-0001",
+      "invoice_reg_date": "2025-05-05",
+      "invoice_date": "2025-05-04",
+      "invoice_supplier": 1,
+      "registered_by": 1,
+      "total_amount": "250.00"
+    }
+  },
+  {
+    "model": "billing.invoice",
+    "pk": 2,
+    "fields": {
+      "invoice_number": "INV-0002",
+      "invoice_reg_date": "2025-05-06",
+      "invoice_date": "2025-05-05",
+      "invoice_supplier": 2,
+      "registered_by": 1,
+      "total_amount": "480.75"
+    }
+  }
+]

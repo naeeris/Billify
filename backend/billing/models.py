@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from suppliers.models import Supplier
 
@@ -14,7 +15,7 @@ class Invoice(models.Model):
         verbose_name='Supplier',
     )
     registered_by = models.ForeignKey(
-        'auth.User',
+        settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         related_name='invoices',
         verbose_name='Registered By',
@@ -43,7 +44,7 @@ class CreditNote(models.Model):
     )
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     registered_by = models.ForeignKey(
-        'auth.User',
+        settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         related_name='credit_notes',
         verbose_name='Registered By',

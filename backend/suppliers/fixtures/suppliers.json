@@ -1,0 +1,30 @@
+[
+  {
+    "model": "suppliers.supplier",
+    "pk": 1,
+    "fields": {
+      "cif": "A12345678",
+      "name": "Proveedor Uno",
+      "address": "Calle Falsa 123, Madrid",
+      "contact_email": "contacto@proveedor1.es",
+      "contact_phone": "+34123456789",
+      "created_at": "2025-05-01T10:00:00Z",
+      "updated_at": "2025-05-01T10:00:00Z",
+      "created_by": 1
+    }
+  },
+  {
+    "model": "suppliers.supplier",
+    "pk": 2,
+    "fields": {
+      "cif": "B98765432",
+      "name": "Proveedor Dos",
+      "address": "Av. Siempre Viva 742, Barcelona",
+      "contact_email": "info@proveedor2.es",
+      "contact_phone": "+34987654321",
+      "created_at": "2025-05-02T11:30:00Z",
+      "updated_at": "2025-05-02T11:30:00Z",
+      "created_by": 1
+    }
+  }
+]

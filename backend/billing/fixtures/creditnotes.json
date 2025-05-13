@@ -1,0 +1,26 @@
+[
+  {
+    "model": "billing.creditnote",
+    "pk": 1,
+    "fields": {
+      "credit_note_number": "CN-1001",
+      "credit_note_reg_date": "2025-05-07",
+      "credit_note_date": "2025-05-06",
+      "credit_note_supplier": 1,
+      "total_amount": "50.00",
+      "registered_by": 1
+    }
+  },
+  {
+    "model": "billing.creditnote",
+    "pk": 2,
+    "fields": {
+      "credit_note_number": "CN-1002",
+      "credit_note_reg_date": "2025-05-08",
+      "credit_note_date": "2025-05-07",
+      "credit_note_supplier": 2,
+      "total_amount": "75.25",
+      "registered_by": 1
+    }
+  }
+]
