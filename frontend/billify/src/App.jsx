@@ -1,20 +1,18 @@
-import { Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout/Layout';
-import InvoicesMenu from './components/Invoices/InvoicesMenu';
+import { Routes, Route, Navigate  } from 'react-router-dom';
+import Login from './components/Layout/Login';
 import './App.css';
+
+
 
 function App() {
   return (
-    <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* Rutas principales */}
-         
-          
-          
-          {/* Rutas de creación */}
-          
-        </Route>
-      </Routes>
+        <Routes>
+          {/* Login */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Cualquier otra ruta redirige al login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes> 
   )
 }
 
