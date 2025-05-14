@@ -1,66 +1,31 @@
-/* Estilos base */
-* {
+/* Reset general */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+   background-color: transparent;
+}
+
+/* Transición suave al cambiar de modo */
+.app-container {
+  transition: background-color 0.3s ease;
+}
+
+/* Elimina solapamientos no deseados */
+.content-area {
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Layout principal */
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* Sidebar (posición fija) */
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 250px;
-  z-index: 100;
-  transition: width 0.3s ease;
-}
-
-.sidebar.collapsed {
-  width: 60px;
-}
-
-/* Área de contenido principal */
-.content-area {
-  flex-grow: 1;
-  margin-left: 250px;
-  transition: margin-left 0.3s ease;
-}
-
-.sidebar.collapsed ~ .content-area {
-  margin-left: 60px;
-}
-
-/* Navbar (posición fija) */
-.navbar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 250px;
-  height: 60px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 90;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  transition: left 0.3s ease;
-}
-
-.sidebar.collapsed ~ .content-area .navbar {
-  left: 60px;
-}
-
-/* Contenido principal */
-.main-content {
-  margin-top: 60px;
-  padding: 2rem;
-  min-height: calc(100vh - 60px);
+/* Evita que elementos floten mal */
+h1, h2, h3, p {
+  margin: 0 0 1rem;
 }

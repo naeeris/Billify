@@ -1,0 +1,25 @@
+.login-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-page.light {
+  background-color: #f0f0f0;
+}
+
+.login-page.dark {
+  background-color: #121212;
+}
+
+.login-box {
+  background-color: #184D64;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}

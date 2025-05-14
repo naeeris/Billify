@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from .serializers import UserSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views      import TokenObtainPairView
 
 User = get_user_model()
 
@@ -47,3 +48,6 @@ class UserDetailAPIView(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer

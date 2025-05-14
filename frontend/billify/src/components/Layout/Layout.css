@@ -1,31 +1,52 @@
+/* Layout base */
 .app-container {
   display: flex;
   min-height: 100vh;
-  transition: background-color 0.3s ease;
+  background-color: transparent;
 }
 
+/* Modo oscuro */
 .app-container.dark-mode {
-  background-color: #1a1a1a11;
+  background-color: #121212;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Sidebar (ya fijo a la izquierda) */
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+/* Contenido que incluye navbar + outlet */
+/* Compensa el sidebar (250px fijo a la izquierda) */
 .content-area {
-  flex-grow: 1;
   margin-left: 250px;
-  transition: margin-left 0.3s ease, background-color 0.3s ease;
+  padding-top: 60px; /* Compensa navbar fija */
+  min-height: 100vh;
+  transition: margin-left 0.1s ease;
 }
 
-.sidebar.collapsed ~ .content-area {
+.content-area.collapsed {
   margin-left: 60px;
 }
 
-.main-content {
-  margin-top: 60px;
-  padding: 2rem;
-  min-height: calc(100vh - 60px);
-  transition: background-color 0.3s ease;
+/* Navbar arriba */
+.navbar {
+  height: 60px;
+  flex-shrink: 0;
+  z-index: 100;
 }
 
-.app-container.dark-mode .main-content {
-  background-color: #1a1a1a11;
-  color: #f0f0f0;
+/* Contenido interno (el que pintas con <Outlet />) */
+.main-content {
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.main-content.dark-mode {
+  background-color: #1a1a1a11;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+

@@ -10,7 +10,7 @@ from .serializers import (
     CreditNoteSerializer,
 )
 
-# CRUD para Invoice
+# CRUD para Invoice y CreditNote
 class InvoiceViewSet(viewsets.ModelViewSet):
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer

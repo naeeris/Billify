@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views      import TokenObtainPairView
+
 
 User = get_user_model()
 
@@ -22,5 +22,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role'] = user.role
         return token
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer

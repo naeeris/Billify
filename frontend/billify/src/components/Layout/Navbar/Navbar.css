@@ -11,10 +11,9 @@
   justify-content: space-between; /* Distribuye el espacio entre elementos */
 }
 
-/* Modo oscuro */
 .navbar.dark-mode {
-  background-color: #1a1a1a11;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #202124;
+  color: #ffffff;
 }
 
 /* Ajuste cuando el sidebar está colapsado */
@@ -42,13 +41,7 @@
   font-weight: 500;
 }
 
-.navbar.dark-mode .add-button {
-  background-color: #0e3647;
-}
 
-.add-button:hover {
-  background-color: #0e3647;
-}
 
 .button-icon {
   margin-right: 0.5rem;
@@ -74,7 +67,7 @@
   color: #184D64;
 }
 
-.navbar.dark-mode .user-icon {
+.navbar.dark-mode .user-icon {   
   color: #184D64;
 }
 

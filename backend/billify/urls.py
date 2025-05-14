@@ -1,7 +1,7 @@
 # billify/urls.py
 from django.contrib import admin
 from django.urls import path, include
-from users.serializers import MyTokenObtainPairView
+from users.views import MyTokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
