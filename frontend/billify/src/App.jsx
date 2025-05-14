@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import PrivateRoutes from "./components/PrivateRoutes";
 import Layout from "./components/Layout/Layout";
 import Invoices from "./pages/Invoices";
+
 import "./App.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route element={<PrivateRoutes />}>
         <Route element={<Layout />}>
           <Route path="/invoices" element={<Invoices />} />
+          
           
         </Route>
       </Route>

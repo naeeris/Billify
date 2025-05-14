@@ -1,25 +1,26 @@
 .navbar {
-  width: calc(100% - 250px); /* Resta el ancho del sidebar */
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
   position: fixed;
   top: 0;
-  left: 250px; /* Comienza después del sidebar */
+  left: 250px;
+  width: calc(100% - 250px);
+  height: 60px;
+  background-color: #ffffff;
   z-index: 1100;
+  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between; /* Distribuye el espacio entre elementos */
+  justify-content: space-between;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+.navbar.collapsed {
+  left: 80px;
+  width: calc(100% - 80px);
 }
 
 .navbar.dark-mode {
   background-color: #202124;
   color: #ffffff;
-}
-
-/* Ajuste cuando el sidebar está colapsado */
-.sidebar.collapsed ~ .content-area .navbar {
-  width: calc(100% - 60px); /* Ancho reducido cuando sidebar colapsado */
-  left: 60px;
+  
 }
 
 .navbar-content {
@@ -37,11 +38,9 @@
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   font-weight: 500;
+  transition: background-color 0.3s ease;
 }
-
-
 
 .button-icon {
   margin-right: 0.5rem;
@@ -52,10 +51,9 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   padding: 0.5rem;
   border-radius: 4px;
-  margin-left: auto; /* Esto empuja el área de usuario a la derecha */
+  margin-left: auto;
 }
 
 .user-area:hover {
@@ -67,18 +65,16 @@
   color: #184D64;
 }
 
-.navbar.dark-mode .user-icon {   
+.navbar.dark-mode .user-icon {
   color: #184D64;
 }
 
 .welcome-text {
   font-weight: 500;
   color: #333;
-  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  white-space: nowrap;
 }
 
 .navbar.dark-mode .welcome-text {
   color: #f0f0f0;
 }
-
-

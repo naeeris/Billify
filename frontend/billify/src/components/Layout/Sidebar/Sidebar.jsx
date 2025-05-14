@@ -3,8 +3,7 @@ import { FaFileInvoice, FaFileInvoiceDollar, FaUsers, FaChartBar, FaChevronLeft 
 import  useDarkMode  from '../../hooks/DarkMode';
 import './Sidebar.css';
 
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false); // Estado para manejar el colapso del sidebar
+const Sidebar = ({ collapsed, setCollapsed }) => {
   const DarkMode = useDarkMode();
 
   // Función para alternar el estado del sidebar, cambiando entre colapsado y expandido con true o false

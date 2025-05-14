@@ -22,3 +22,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role'] = user.role
         return token
 
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        # Añadir datos del usuario al response (además del token)
+        data['user_id'] = self.user.id
+        data['username'] = self.user.username
+        data['role'] = self.user.role
+
+        return data

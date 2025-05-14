@@ -34,6 +34,9 @@ const Login = ({ onLogin }) => {
       localStorage.setItem("username", formData.username);
       localStorage.setItem("role", data.role);
 
+      console.log("userId en storage:", localStorage.getItem("userId"));
+
+
       navigate("/invoices");
 
     } catch (err) {
