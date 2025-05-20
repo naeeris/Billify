@@ -13,9 +13,11 @@ const Navbar = ({ collapsed, setRefreshInvoices }) => {
   const username = localStorage.getItem("username");
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
-  const handleInvoiceCreated = () => {
+  const handleInvoiceCreated = (shouldClose = true) => {
     setRefreshInvoices((prev) => !prev); // ← esto notifica al padre que recargue
-    setShowInvoiceModal(false); // ← esto cierra el modal
+    if (shouldClose) {
+      setShowInvoiceModal(false); // ← esto cierra el modal
+    }
   };
 
   // Determina el texto del botón según la ruta actual

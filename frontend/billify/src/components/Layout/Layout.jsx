@@ -26,7 +26,7 @@ const Layout = () => {
             collapsed ? "collapsed" : ""
           }`}
         >
-          <Outlet context={{ refreshInvoices }} /> {/* Aquí se renderizarán las rutas hijas */}
+          <Outlet context={{ refreshInvoices, setRefreshInvoices }} /> {/* Aquí se renderizarán las rutas hijas */}
         </main>
       </div>
     </div>

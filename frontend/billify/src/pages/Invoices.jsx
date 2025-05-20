@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
-import { getInvoices } from "../services/invoiceService";
+import { getInvoices, deleteInvoice } from "../services/invoiceService";
 import { useOutletContext } from "react-router-dom";
 import useDarkMode from "../components/hooks/DarkMode";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { isAdminUser } from "../services/authUtils";
+import { toast } from "react-toastify";
+import InvoiceModal from "./InvoiceModal";
 
 const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { refreshInvoices } = useOutletContext();
-  const DarkMode = useDarkMode();
+  const { refreshInvoices, setRefreshInvoices } = useOutletContext(); 
 
-  const tableClass = `table table-dark table-hover align-middle ${
-    DarkMode ? "table-dark" : ""
-  }`;
+  const DarkMode = useDarkMode();
+  const isAdmin = isAdminUser();
+
+  // Para manejar la edición de facturas
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const tableClass = `table table-hover align-middle ${DarkMode ? "table-dark" : "table-light"}`;
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -30,6 +37,33 @@ const Invoices = () => {
   }, [refreshInvoices]); // ← esto es lo que hace que se actualice automáticamente
 
   if (loading) return <p>Loading invoices...</p>;
+
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "¿Seguro que quieres eliminar esta factura?"
+    );
+    if (!confirmed) return;
+
+    try {
+      await deleteInvoice(id);
+      setInvoices((prev) => prev.filter((i) => i.id !== id));
+      toast.success("Factura eliminada correctamente");
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      toast.error("Error al eliminar la factura");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedInvoice(null);
+  };
+
+  const handleInvoiceCreated = () => {
+    setRefreshInvoices((prev) => !prev);
+    handleCloseModal();
+  };
+
 
   return (
     <div className="d-flex justify-content-center  mt-5 mb-5">
@@ -63,25 +97,40 @@ const Invoices = () => {
                     <button
                       type="button"
                       className="btn btn-outline-warning btn-sm me-2"
-                      onClick={() => handleEdit(invoice.id)}
+                      onClick={() => {
+                        setSelectedInvoice(invoice);
+                        setShowModal(true);
+                      }}
                       title="Edit"
                     >
                       <FiEdit />
                     </button>
-                    <button
-                      type="button"
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => handleDelete(invoice.id)}
-                      title="Delete"
-                    >
-                      <FiTrash2 />
-                    </button>
+
+                    {isAdmin && (
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => handleDelete(invoice.id)}
+                        title="Delete"
+                      >
+                        <FiTrash2 />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {/* Modal para crear o editar factura */}
+        {showModal && (
+          <InvoiceModal
+            show={showModal}
+            onClose={handleCloseModal}
+            onInvoiceCreated={handleInvoiceCreated}
+            invoice={selectedInvoice}
+          />
+        )}
       </div>
     </div>
   );
