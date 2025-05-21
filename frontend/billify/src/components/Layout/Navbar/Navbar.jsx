@@ -1,17 +1,19 @@
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import useDarkMode from "../../hooks/DarkMode";
 import InvoiceModal from "../../../pages/InvoiceModal";
+import CreditNoteModal from "../../../pages/CreditNoteModal";
 import "./Navbar.css";
 
-const Navbar = ({ collapsed, setRefreshInvoices }) => {
+const Navbar = ({ collapsed, setRefreshInvoices, setRefreshCreditNotes }) => {
   const location = useLocation(); // Hook para obtener la ubicación actual
   const navigate = useNavigate(); // Hook para navegar a diferentes rutas
   const DarkMode = useDarkMode();
 
   const username = localStorage.getItem("username");
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
 
   const handleInvoiceCreated = (shouldClose = true) => {
     setRefreshInvoices((prev) => !prev); // ← esto notifica al padre que recargue
@@ -20,11 +22,18 @@ const Navbar = ({ collapsed, setRefreshInvoices }) => {
     }
   };
 
+  const handleCreditNoteCreated = (shouldClose = true) => {
+    setRefreshCreditNotes((prev) => !prev); // ← esto notifica al padre que recargue
+    if (shouldClose) {
+      setShowCreditNoteModal(false); // ← esto cierra el modal
+    }
+  };
+
   // Determina el texto del botón según la ruta actual
   const getButtonType = () => {
     const path = location.pathname.toLowerCase();
     if (path.includes("invoices")) return "New Invoice";
-    if (path.includes("creditnotes")) return "New Credit Note";
+    if (path.includes("credit-notes")) return "New Credit Note";
     if (path.includes("suppliers")) return "New Supplier";
     return "New Item"; // Valor por defecto si no coincide con ninguna ruta
   };
@@ -34,8 +43,9 @@ const Navbar = ({ collapsed, setRefreshInvoices }) => {
     const path = location.pathname.toLowerCase();
     if (path.includes("invoices")) {
       setShowInvoiceModal(true); // ← en lugar de navigate
-    } else if (path.includes("creditnotes")) navigate("/creditnotes/new");
-    else if (path.includes("suppliers")) navigate("/suppliers/new");
+    } else if (path.includes("credit-notes")) {
+      setShowCreditNoteModal(true); // ← en lugar de navigate
+    } else if (path.includes("suppliers")) navigate("/suppliers/new");
     else navigate("/create");
   };
 
@@ -65,6 +75,13 @@ const Navbar = ({ collapsed, setRefreshInvoices }) => {
           show={showInvoiceModal}
           onClose={() => setShowInvoiceModal(false)}
           onInvoiceCreated={handleInvoiceCreated}
+        />
+      )}
+      {showCreditNoteModal && (
+        <CreditNoteModal
+          show={showCreditNoteModal}
+          onClose={() => setShowCreditNoteModal(false)}
+          onCreditNoteCreated={handleCreditNoteCreated}
         />
       )}
     </nav>

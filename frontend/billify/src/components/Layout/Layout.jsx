@@ -9,24 +9,25 @@ const Layout = () => {
   const DarkMode = useDarkMode();
   const [collapsed, setCollapsed] = useState(false);
   const [refreshInvoices, setRefreshInvoices] = useState(false);
-
-
-  const handleInvoiceCreated = () => {
-    setRefreshInvoices((prev) => !prev); // 🔄 Cambia el flag para que Invoices.jsx lo detecte
-    setShowInvoiceModal(false); // Cierra el modal
-  };
+  const [refreshCreditNotes, setRefreshCreditNotes] = useState(false);
 
   return (
     <div className={`app-container ${DarkMode ? "dark-mode" : ""}`}>
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={`content-area ${collapsed ? "collapsed" : ""}`}>
-        <Navbar collapsed={collapsed} setRefreshInvoices={setRefreshInvoices} />
+        <Navbar collapsed={collapsed} setRefreshInvoices={setRefreshInvoices} setRefreshCreditNotes={setRefreshCreditNotes} />
         <main
           className={`main-content ${DarkMode ? "dark-mode" : ""} ${
             collapsed ? "collapsed" : ""
           }`}
         >
-          <Outlet context={{ refreshInvoices, setRefreshInvoices }} /> {/* Aquí se renderizarán las rutas hijas */}
+          {/* Aquí se renderizarán las rutas hijas */}
+          <Outlet
+            context={{
+              refreshInvoices, setRefreshInvoices,
+              refreshCreditNotes, setRefreshCreditNotes,
+            }}
+          />
         </main>
       </div>
     </div>

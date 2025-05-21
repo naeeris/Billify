@@ -28,7 +28,7 @@ class Invoice(models.Model):
     class Meta:
         verbose_name = "Invoice"
         verbose_name_plural = "Invoices"
-        ordering = ['-invoice_date']
+        ordering = ['invoice_reg_date']
 
 # Modelo CreditNote
 class CreditNote(models.Model):
@@ -56,4 +56,4 @@ class CreditNote(models.Model):
     class Meta:
         verbose_name = "Credit Note"
         verbose_name_plural = "Credit Notes"
-        ordering = ['-credit_note_date']
+        ordering = ['credit_note_reg_date']

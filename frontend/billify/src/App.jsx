@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import PrivateRoutes from "./components/PrivateRoutes";
 import Layout from "./components/Layout/Layout";
 import Invoices from "./pages/Invoices";
+import CreditNotes from "./pages/CreditNotes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -18,10 +19,11 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route element={<Layout />}>
             <Route path="/invoices" element={<Invoices />} />
+            <Route path="/credit-notes" element={<CreditNotes />} />
           </Route>
         </Route>
 
-        {/* Cualquier otra ruta redirige al login */}
+        {/* Cualquier otra ruta redirige a login por defecto */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
 

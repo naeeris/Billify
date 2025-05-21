@@ -1,83 +1,83 @@
 import { useEffect, useState } from "react";
-import { getInvoices, deleteInvoice } from "../services/invoiceService";
+import { getCreditNotes, deleteCreditNote } from "../services/creditNoteService";
 import { useOutletContext } from "react-router-dom";
 import useDarkMode from "../components/hooks/DarkMode";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { isAdminUser } from "../services/authUtils";
 import { toast } from "react-toastify";
-import InvoiceModal from "./InvoiceModal";
+import CreditNoteModal from "./CreditNoteModal";
 
-const Invoices = () => {
-  const [invoices, setInvoices] = useState([]);
+const CreditNotes = () => {
+  const [creditNotes, setCreditNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { refreshInvoices, setRefreshInvoices } = useOutletContext(); 
+  const { refreshCreditNotes, setRefreshCreditNotes } = useOutletContext();
 
   const DarkMode = useDarkMode();
   const isAdmin = isAdminUser();
 
-  // Para manejar la edición de facturas
-  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  // Para manejar la edición de abonos
+  const [selectedCreditNote, setSelectedCreditNote] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const tableClass = `table table-hover align-middle ${DarkMode ? "table-dark" : "table-light"}`;
 
   useEffect(() => {
-    const fetchInvoices = async () => {
+    const fetchCreditNotes = async () => {
       try {
-        const data = await getInvoices();
-        setInvoices(data);
+        const data = await getCreditNotes();
+        setCreditNotes(data);
       } catch (error) {
-        console.error("Error al obtener las facturas:", error);
+        console.error("Error al obtener notas de crédito:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchInvoices();
-  }, [refreshInvoices]); // ← esto es lo que hace que se actualice automáticamente
+    fetchCreditNotes();
+  }, [refreshCreditNotes]); // ← esto es lo que hace que se actualice automáticamente
 
-  if (loading) return <p>Loading invoices...</p>;
+  if (loading) return <p>Loading credit notes...</p>;
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "¿Seguro que quieres eliminar esta factura?"
+        "¿Seguro que quieres eliminar esta nota de crédito?"
     );
     if (!confirmed) return;
 
     try {
-      await deleteInvoice(id);
-      setRefreshInvoices((prev) => !prev);
-      toast.success("Factura eliminada correctamente");
+      await deleteCreditNote(id);
+      setRefreshCreditNotes((prev) => !prev);
+      toast.success("Abono eliminado correctamente");
     } catch (error) {
       console.error("Error al eliminar:", error);
-      toast.error("Error al eliminar la factura");
+      toast.error("Error al eliminar el abono");
     }
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setSelectedInvoice(null);
+    setSelectedCreditNote(null);
   };
 
-  const handleInvoiceCreated = () => {
-    setRefreshInvoices((prev) => !prev);
+  const handleCreditNoteCreated = () => {
+    setRefreshCreditNotes((prev) => !prev);
     handleCloseModal();
   };
 
-
   return (
-    <div className="d-flex justify-content-center  mt-5 mb-5">
+    <div className="d-flex justify-content-center mt-5 mb-5">
       <div style={{ width: "90%", maxWidth: "900px" }}>
         <h2 className={`mb-4 mt-4 ${DarkMode ? "text-white" : ""}`}>
-          Invoice List
+          Credit Note List
         </h2>
+
         <div className="table-responsive">
           <table className={tableClass}>
             <thead>
               <tr>
-                <th>Invoice Number</th>
+                <th>Credit Note Number</th>
                 <th>Registration Date</th>
-                <th>Invoice Date</th>
+                <th>Credit Note Date</th>
                 <th>Supplier</th>
                 <th>Total Amount</th>
                 <th>Registered by</th>
@@ -85,20 +85,20 @@ const Invoices = () => {
               </tr>
             </thead>
             <tbody>
-              {invoices.map((invoice) => (
-                <tr key={invoice.id}>
-                  <td>{invoice.invoice_number}</td>
-                  <td>{invoice.invoice_reg_date}</td>
-                  <td>{invoice.invoice_date}</td>
-                  <td>{invoice.invoice_supplier}</td>
-                  <td>{invoice.total_amount} €</td>
-                  <td>{invoice.registered_by}</td>
+              {creditNotes.map((creditnote) => (
+                <tr key={creditnote.id}>
+                  <td>{creditnote.credit_note_number}</td>
+                  <td>{creditnote.credit_note_date}</td>
+                  <td>{creditnote.credit_note_reg_date}</td>
+                  <td>{creditnote.credit_note_supplier}</td>
+                  <td>{creditnote.total_amount} €</td>
+                  <td>{creditnote.registered_by}</td>
                   <td>
                     <button
                       type="button"
                       className="btn btn-outline-warning btn-sm me-2"
                       onClick={() => {
-                        setSelectedInvoice(invoice);
+                        setSelectedCreditNote(creditnote);
                         setShowModal(true);
                       }}
                       title="Edit"
@@ -110,7 +110,7 @@ const Invoices = () => {
                       <button
                         type="button"
                         className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleDelete(invoice.id)}
+                        onClick={() => handleDelete(creditnote.id)}
                         title="Delete"
                       >
                         <FiTrash2 />
@@ -122,13 +122,13 @@ const Invoices = () => {
             </tbody>
           </table>
         </div>
-        {/* Modal para crear o editar factura */}
+        {/* Modal para crear o editar abono */}
         {showModal && (
-          <InvoiceModal
+          <CreditNoteModal
             show={showModal}
             onClose={handleCloseModal}
-            onInvoiceCreated={handleInvoiceCreated}
-            invoice={selectedInvoice}
+            onCreditNoteCreated={handleCreditNoteCreated}
+            creditNote={selectedCreditNote}
           />
         )}
       </div>
@@ -136,4 +136,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default CreditNotes;

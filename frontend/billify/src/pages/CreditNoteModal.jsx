@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { createInvoice, updateInvoice } from "../services/invoiceService";
+import { createCreditNote, updateCreditNote } from "../services/creditNoteService";
 import { getSuppliers } from "../services/supplierService";
 import useDarkMode from "../components/hooks/DarkMode";
 
-const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
+const CreditNoteModal = ({show, onClose, onCreditNoteCreated, creditNote }) => {
   const DarkMode = useDarkMode();
   const [suppliers, setSuppliers] = useState([]);
-  const isEditMode = !!invoice;
+  const isEditMode = !!creditNote;
 
   const [form, setForm] = useState({
-    invoice_number: "",
-    invoice_date: "",
-    invoice_reg_date: new Date().toISOString().split("T")[0],
-    invoice_supplier: "",
+    credit_note_number: "",
+    credit_note_date: "",
+    credit_note_reg_date: new Date().toISOString().split("T")[0],
+    credit_note_supplier: "",
     total_amount: "",
   });
 
@@ -20,16 +20,16 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
 
   // Si estamos editando, rellenamos los campos con los datos existentes
   useEffect(() => {
-    if (invoice) {
+    if (creditNote) {
       setForm({
-        invoice_number: invoice.invoice_number,
-        invoice_date: invoice.invoice_date,
-        invoice_reg_date: invoice.invoice_reg_date,
-        invoice_supplier: invoice.invoice_supplier,
-        total_amount: invoice.total_amount,
+        credit_note_number: creditNote.credit_note_number,
+        credit_note_date: creditNote.credit_note_date,
+        credit_note_reg_date: creditNote.credit_note_reg_date,
+        credit_note_supplier: creditNote.credit_note_supplier,
+        total_amount: creditNote.total_amount,
       });
     }
-  }, [invoice]);
+  }, [creditNote]);
 
   // Cargar proveedores
   useEffect(() => {
@@ -51,10 +51,10 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
 
   const resetForm = () => {
     setForm({
-      invoice_number: "",
-      invoice_date: "",
-      invoice_reg_date: new Date().toISOString().split("T")[0],
-      invoice_supplier: "",
+      credit_note_number: "",
+      credit_note_date: "",
+      credit_note_reg_date: new Date().toISOString().split("T")[0],
+      credit_note_supplier: "",
       total_amount: "",
     });
   };
@@ -62,23 +62,23 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const invoiceData = {
+    const creditNoteData = {
       ...form,
       registered_by: userId,
     };
 
     try {
       if (isEditMode) {
-        await updateInvoice(invoice.id, invoiceData);
+        await updateCreditNote(creditNote.id, creditNoteData);
       } else {
-        await createInvoice(invoiceData);
+        await createCreditNote(creditNoteData);
       }
 
-      if (onInvoiceCreated) onInvoiceCreated(true); // 🔄 Notifica al padre
+      if (onCreditNoteCreated) onCreditNoteCreated(true); // 🔄 Notifica al padre
       onClose();
     } catch (error) {
       console.error(
-        "Error al guardar la factura:",
+        "Error al guardar el abono:", 
         error.response?.data || error.message
       );
     }
@@ -86,18 +86,18 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
 
   //Función para añadir facturas seguidas
   const handleSaveAndNew = async () => {
-    const invoiceData = {
+    const creditNoteData = {
       ...form,
       registered_by: userId,
     };
 
     try {
-      await createInvoice(invoiceData);
-      if (onInvoiceCreated) onInvoiceCreated(false); // 🔄 Notifica al padre
-      resetForm(); // reinicia formulario
+      await createCreditNote(creditNoteData);
+      if (onCreditNoteCreated) onCreditNoteCreated(false); // 🔄 Notifica al padre
+      resetForm();
     } catch (error) {
       console.error(
-        "Error al crear la factura:",
+        "Error al crear el abono:", 
         error.response?.data || error.message
       );
     }
@@ -113,7 +113,7 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
       tabIndex="-1"
       style={{
         backgroundColor: "rgba(0,0,0,0.5)",
-        zIndex: 2000, // Con esto hacemos que el modal quede por encima del navbar
+        zIndex: 2000,  // Con esto hacemos que el modal quede por encima del navbar
         position: "fixed",
         top: 0,
         left: 0,
@@ -126,7 +126,7 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
           <form onSubmit={handleSubmit}>
             <div className={`modal-header ${containerClass}`}>
               <h5 className="modal-title">
-                {isEditMode ? "Edit Invoice" : "New Invoice"}
+                {isEditMode ? "Edit Credit Note" : "New Credit Note"}
               </h5>
               <button
                 type="button"
@@ -137,32 +137,32 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
             <div className={`modal-body ${containerClass}`}>
               <input
                 type="text"
-                name="invoice_number"
-                placeholder="Invoice Number"
-                value={form.invoice_number}
+                name="credit_note_number"
+                placeholder="Credit Note Number"
+                value={form.credit_note_number}
                 onChange={handleChange}
                 className="form-control mb-2"
                 required
               />
               <input
                 type="date"
-                name="invoice_date"
-                value={form.invoice_date}
+                name="credit_note_date"
+                value={form.credit_note_date}
                 onChange={handleChange}
                 className="form-control mb-2"
                 required
               />
               <input
                 type="date"
-                name="invoice_reg_date"
-                value={form.invoice_reg_date}
+                name="credit_note_reg_date"
+                value={form.credit_note_reg_date}
                 onChange={handleChange}
                 className="form-control mb-2"
                 required
               />
               <select
-                name="invoice_supplier"
-                value={form.invoice_supplier}
+                name="credit_note_supplier"
+                value={form.credit_note_supplier}
                 onChange={handleChange}
                 className="form-select mb-2"
                 required
@@ -193,7 +193,7 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
                 Cancel
               </button>
               <button type="submit" className="btn btn-primary">
-                {isEditMode ? "Save Changes" : "Save Invoice"}
+                {isEditMode ? "Save Changes" : "Save Credit Note"}
               </button>
               {!isEditMode && (
                 <button
@@ -215,4 +215,4 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
   );
 };
 
-export default InvoiceModal;
+export default CreditNoteModal;
