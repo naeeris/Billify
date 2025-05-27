@@ -1,10 +1,11 @@
-import { useState } from "react"; //Con este estado manejamos el colapsado del sidebar
+import { useState, useEffect } from "react"; //Con este estado manejamos el colapsado del sidebar
 import {
   FaFileInvoice,
   FaFileInvoiceDollar,
   FaUsers,
   FaChartBar,
   FaChevronLeft,
+  FaUserShield
 } from "react-icons/fa";
 import useDarkMode from "../../hooks/DarkMode";
 import SidebarItem from "./SidebarItem";
@@ -12,6 +13,13 @@ import "./Sidebar.css";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const DarkMode = useDarkMode();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Aquí agregamos la lógica para determinar si el usuario es administrador mediante el role
+  useEffect(() => {
+    const role = localStorage.getItem("role"); // Obtenemos el role del usuario desde localStorage
+    setIsAdmin(role === "admin");
+  }, []);
 
   // Función para alternar el estado del sidebar, cambiando entre colapsado y expandido con true o false
   const toggleSidebar = () => {
@@ -22,9 +30,22 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   const menuItems = [
     { id: "invoices", label: "Invoices", icon: <FaFileInvoice /> },
     { id: "credit-notes", label: "Credit Notes", icon: <FaFileInvoiceDollar /> },
-    { id: "suppliers", label: "Suppliers", icon: <FaUsers /> },
     { id: "statics", label: "Statics", icon: <FaChartBar /> },
   ];
+
+  // Si el usuario es administrador, agregamos el elemento de proveedores y usuarios al sidebar
+  if (isAdmin) {
+    menuItems.push({
+      id: "suppliers",
+      label: "Suppliers",
+      icon: <FaUsers />,
+    });
+    menuItems.push({
+      id: "users",
+      label: "Users",
+      icon: <FaUserShield />,
+    });
+  }
 
   return (
     <div

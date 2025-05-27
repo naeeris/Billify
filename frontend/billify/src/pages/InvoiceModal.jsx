@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createInvoice, updateInvoice } from "../services/invoiceService";
 import { getSuppliers } from "../services/supplierService";
 import useDarkMode from "../components/hooks/DarkMode";
+import { toast } from "react-toastify";
 
 const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
   const DarkMode = useDarkMode();
@@ -70,8 +71,10 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
     try {
       if (isEditMode) {
         await updateInvoice(invoice.id, invoiceData);
+        toast.success("Invoice updated successfully");
       } else {
         await createInvoice(invoiceData);
+        toast.success("Invoice created successfully");
       }
 
       if (onInvoiceCreated) onInvoiceCreated(true); // 🔄 Notifica al padre
@@ -93,13 +96,15 @@ const InvoiceModal = ({ show, onClose, onInvoiceCreated, invoice }) => {
 
     try {
       await createInvoice(invoiceData);
+      toast.success("Invoice created successfully");
       if (onInvoiceCreated) onInvoiceCreated(false); // 🔄 Notifica al padre
       resetForm(); // reinicia formulario
     } catch (error) {
       console.error(
-        "Error al crear la factura:",
+        "Error creating invoice:",
         error.response?.data || error.message
       );
+      toast.error("Error creating invoice");
     }
   };
 

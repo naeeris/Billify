@@ -68,7 +68,7 @@ const CreditNotes = () => {
     <div className="d-flex justify-content-center mt-5 mb-5">
       <div style={{ width: "90%", maxWidth: "900px" }}>
         <h2 className={`mb-4 mt-4 ${DarkMode ? "text-white" : ""}`}>
-          Credit Note List
+          Credit Notes
         </h2>
 
         <div className="table-responsive">

@@ -10,22 +10,34 @@ const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [refreshInvoices, setRefreshInvoices] = useState(false);
   const [refreshCreditNotes, setRefreshCreditNotes] = useState(false);
+  const [refreshSuppliers, setRefreshSuppliers] = useState(false);
+  const [refreshUsers, setRefreshUsers] = useState(false);
 
   return (
     <div className={`app-container ${DarkMode ? "dark-mode" : ""}`}>
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={`content-area ${collapsed ? "collapsed" : ""}`}>
-        <Navbar collapsed={collapsed} setRefreshInvoices={setRefreshInvoices} setRefreshCreditNotes={setRefreshCreditNotes} />
+        <Navbar
+          collapsed={collapsed}
+          setRefreshInvoices={setRefreshInvoices}
+          setRefreshCreditNotes={setRefreshCreditNotes}
+          setRefreshSuppliers={setRefreshSuppliers}
+          setRefreshUsers={setRefreshUsers}
+        />
         <main
-          className={`main-content ${DarkMode ? "dark-mode" : ""} ${
-            collapsed ? "collapsed" : ""
-          }`}
+          className={`main-content ${DarkMode ? "dark-mode" : ""} ${collapsed ? "collapsed" : "" }`}
         >
           {/* Aquí se renderizarán las rutas hijas */}
           <Outlet
             context={{
-              refreshInvoices, setRefreshInvoices,
-              refreshCreditNotes, setRefreshCreditNotes,
+              refreshInvoices,
+              setRefreshInvoices,
+              refreshCreditNotes,
+              setRefreshCreditNotes,
+              refreshSuppliers,
+              setRefreshSuppliers,
+              refreshUsers,
+              setRefreshUsers,
             }}
           />
         </main>

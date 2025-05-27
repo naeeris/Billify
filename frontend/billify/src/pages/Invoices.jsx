@@ -40,17 +40,17 @@ const Invoices = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "¿Seguro que quieres eliminar esta factura?"
+      "¿Are you sure you want to delete this invoice?"
     );
     if (!confirmed) return;
 
     try {
       await deleteInvoice(id);
       setRefreshInvoices((prev) => !prev);
-      toast.success("Factura eliminada correctamente");
+      toast.success("Invoice deleted successfully");
     } catch (error) {
-      console.error("Error al eliminar:", error);
-      toast.error("Error al eliminar la factura");
+      console.error("Error deleting invoice:", error);
+      toast.error("Error deleting invoice");
     }
   };
 
@@ -69,7 +69,7 @@ const Invoices = () => {
     <div className="d-flex justify-content-center  mt-5 mb-5">
       <div style={{ width: "90%", maxWidth: "900px" }}>
         <h2 className={`mb-4 mt-4 ${DarkMode ? "text-white" : ""}`}>
-          Invoice List
+          Invoices
         </h2>
         <div className="table-responsive">
           <table className={tableClass}>

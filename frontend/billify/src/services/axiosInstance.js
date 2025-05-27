@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:8000/api', // Asegúrate de que coincida con tu backend
@@ -13,5 +14,29 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+// Interceptor para manejar expiración de token y redirección
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      // Mostrar aviso al usuario
+      toast.warning("Your session has expired. Please log in again.");
+
+      // Eliminar tokens y redirigir
+      localStorage.clear();
+      window.location.href = "/login";
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;

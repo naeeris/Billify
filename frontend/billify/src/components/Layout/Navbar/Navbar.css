@@ -6,7 +6,7 @@
   height: 60px;
   background-color: #ffffff;
   z-index: 1100;
-  padding: 1rem 2rem;
+  padding: 0 2rem; /* elimina el padding vertical */
   display: flex;
   justify-content: space-between;
   transition: left 0.3s ease, width 0.3s ease;
@@ -27,7 +27,9 @@
 
 .navbar-content {
   display: flex;
-  align-items: center;
+  align-items: center;      /* ✅ Centra verticalmente */
+  justify-content: space-between;
+  height: 100%;             /* ✅ Para que herede el alto del navbar */
   width: 100%;
 }
 
