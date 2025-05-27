@@ -11,9 +11,11 @@ const SupplierModal = ({ show, onClose, onSupplierSaved, supplier }) => {
     cif: "",
     name: "",
     address: "",
-    email: "",
-    phone: "",
+    contact_email: "",
+    contact_phone: "",
   });
+
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (supplier) {
@@ -21,8 +23,8 @@ const SupplierModal = ({ show, onClose, onSupplierSaved, supplier }) => {
         cif: supplier.cif || "",
         name: supplier.name || "",
         address: supplier.address || "",
-        email: supplier.email || "",
-        phone: supplier.phone || "",
+        contact_email: supplier.contact_email || "",
+        contact_phone: supplier.contact_phone || "",
       });
     } 
   }, [supplier]);
@@ -36,18 +38,23 @@ const SupplierModal = ({ show, onClose, onSupplierSaved, supplier }) => {
   };
 
   const resetForm = () => {
-    setForm({ cif: "", name: "", address: "", email: "", phone: "" });
+    setForm({ cif: "", name: "", address: "", contact_email: "", contact_phone: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = {
+        ...form,
+        created_by: userId,
+    };
+
     try {
       if (isEditMode) {
-        await updateSupplier(supplier.id, form);
+        await updateSupplier(supplier.id, formData);
         toast.success("Supplier updated successfully");
       } else {
-        await createSupplier(form);
+        await createSupplier(formData);
         toast.success("Supplier created successfully");
       }
 
@@ -59,8 +66,12 @@ const SupplierModal = ({ show, onClose, onSupplierSaved, supplier }) => {
   };
 
   const handleSaveAndNew = async () => {
+    const formData = {
+        ...form,
+        created_by: userId,
+    };
     try {
-      await createSupplier(form);
+      await createSupplier(formData);
       toast.success("Supplier created successfully");
       if (onSupplierSaved) onSupplierSaved(false);
       resetForm();
@@ -125,17 +136,17 @@ const SupplierModal = ({ show, onClose, onSupplierSaved, supplier }) => {
             />
               <input
                 type="email"
-                name="email"
+                name="contact_email"
                 placeholder="Supplier Email"
-                value={form.email}
+                value={form.contact_email}
                 onChange={handleChange}
                 className="form-control mb-2"
               />
               <input
                 type="tel"
-                name="phone"
+                name="contact_phone"
                 placeholder="Phone"
-                value={form.phone}
+                value={form.contact_phone}
                 onChange={handleChange}
                 className="form-control mb-2"
               />

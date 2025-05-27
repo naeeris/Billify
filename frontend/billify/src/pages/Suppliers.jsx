@@ -74,6 +74,7 @@ const Suppliers = () => {
                 <th>Address</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Created By</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -83,8 +84,9 @@ const Suppliers = () => {
                   <td>{supplier.cif}</td>
                   <td>{supplier.name}</td>
                   <td>{supplier.address}</td>
-                  <td>{supplier.email}</td>
-                  <td>{supplier.phone}</td>
+                  <td>{supplier.contact_email}</td>
+                  <td>{supplier.contact_phone}</td>
+                  <td>{supplier.created_by_username}</td>
                   <td>
                     <button
                       type="button"

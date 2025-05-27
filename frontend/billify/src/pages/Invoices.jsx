@@ -92,7 +92,7 @@ const Invoices = () => {
                   <td>{invoice.invoice_date}</td>
                   <td>{invoice.invoice_supplier}</td>
                   <td>{invoice.total_amount} €</td>
-                  <td>{invoice.registered_by}</td>
+                  <td>{invoice.registered_by_username}</td>
                   <td>
                     <button
                       type="button"

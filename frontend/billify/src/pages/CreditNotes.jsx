@@ -40,14 +40,14 @@ const CreditNotes = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-        "¿Seguro que quieres eliminar esta nota de crédito?"
+        "¿Are you sure you want to delete this creditnote?"
     );
     if (!confirmed) return;
 
     try {
       await deleteCreditNote(id);
       setRefreshCreditNotes((prev) => !prev);
-      toast.success("Abono eliminado correctamente");
+      toast.success("Credit Note deleted successfully");
     } catch (error) {
       console.error("Error al eliminar:", error);
       toast.error("Error al eliminar el abono");
@@ -92,7 +92,7 @@ const CreditNotes = () => {
                   <td>{creditnote.credit_note_reg_date}</td>
                   <td>{creditnote.credit_note_supplier}</td>
                   <td>{creditnote.total_amount} €</td>
-                  <td>{creditnote.registered_by}</td>
+                  <td>{creditnote.registered_by_username}</td>
                   <td>
                     <button
                       type="button"
