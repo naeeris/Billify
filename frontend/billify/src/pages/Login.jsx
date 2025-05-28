@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authService"; 
-import useDarkMode from "../components/hooks/DarkMode"; 
+import { loginUser } from "../services/authService";
+import useDarkMode from "../components/hooks/DarkMode";
+import logoBillify from '../assets/logo-billify.png'; 
+
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
-
   const DarkMode = useDarkMode();
-  
+
   const [formData, setFormData] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
   const [error, setError] = useState("");
@@ -20,7 +21,7 @@ const Login = ({ onLogin }) => {
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -30,24 +31,22 @@ const Login = ({ onLogin }) => {
     try {
       const data = await loginUser(formData);
       localStorage.setItem("token", data.access); // Usa 'token' para consistencia
-      localStorage.setItem("userId", data.user_id); // <-- Asegúrate de que el backend envíe esto
+      localStorage.setItem("userId", data.user_id); 
       localStorage.setItem("username", formData.username);
       localStorage.setItem("role", data.role);
 
       console.log("userId en storage:", localStorage.getItem("userId"));
 
-
       navigate("/invoices");
-
     } catch (err) {
       setError("Error al iniciar sesión. Verifica tu usuario y contraseña.");
     }
   };
 
   return (
-    <div className={`login-page ${DarkMode ? 'dark-mode' : ''}`}>
+    <div className={`login-page ${DarkMode ? "dark-mode" : ""}`}>
       <form className="login-box" onSubmit={handleSubmit}>
-        <h2 className="text-center mb-4 text-white">Billify</h2>
+        <img src={logoBillify} alt="Billify logo" className="login-logo mb-4" />
 
         <div className="form-group mb-3">
           <label className="text-white">Username</label>

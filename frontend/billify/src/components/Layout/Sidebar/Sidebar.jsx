@@ -5,10 +5,12 @@ import {
   FaUsers,
   FaChartBar,
   FaChevronLeft,
-  FaUserShield
+  FaUserShield,
 } from "react-icons/fa";
 import useDarkMode from "../../hooks/DarkMode";
 import SidebarItem from "./SidebarItem";
+import logoBillify from "../../../assets/logo-billify.png";
+import logoBillifyIcon from "../../../assets/icon-billify.png";
 import "./Sidebar.css";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
@@ -29,7 +31,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   // Elementos del menú del sidebar
   const menuItems = [
     { id: "invoices", label: "Invoices", icon: <FaFileInvoice /> },
-    { id: "credit-notes", label: "Credit Notes", icon: <FaFileInvoiceDollar /> },
+    {
+      id: "credit-notes",
+      label: "Credit Notes",
+      icon: <FaFileInvoiceDollar />,
+    },
     { id: "statics", label: "Statics", icon: <FaChartBar /> },
   ];
 
@@ -57,8 +63,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       {/* Sidebar principal con clase condicional para colapsado o no*/}
       {/* Encabezado del Sidebar */}
       <div className="sidebar-header">
-        {!collapsed && <h3>Billify</h3>}{" "}
-        {/* Título del sidebar, solo se muestra cuando no está colapsado */}
+        <img
+          src={collapsed ? logoBillifyIcon : logoBillify}
+          alt="Billify logo"
+          className={`login-logo mb-4 ${collapsed ? "logo-icon" : "logo-full"}`}
+        />
       </div>
       {/* Menú de Navegación - Mapea el array del menu para generar los botones de navegación */}
       <nav className="sidebar-nav">
