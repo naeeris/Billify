@@ -31,11 +31,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   // Elementos del menú del sidebar
   const menuItems = [
     { id: "invoices", label: "Invoices", icon: <FaFileInvoice /> },
-    {
-      id: "credit-notes",
-      label: "Credit Notes",
-      icon: <FaFileInvoiceDollar />,
-    },
+    { id: "credit-notes", label: "Credit Notes", icon: <FaFileInvoiceDollar /> },
     { id: "statics", label: "Statics", icon: <FaChartBar /> },
   ];
 
